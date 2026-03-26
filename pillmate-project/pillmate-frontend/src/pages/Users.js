@@ -22,14 +22,14 @@ function Users() {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h1 className="page-title">👥 Users (Admin)</h1>
+                <h1 className="page-title"><i className="bi bi-people-fill text-primary"></i> Users (Admin)</h1>
                 <span className="badge badge-info">{users.length} Users</span>
             </div>
 
             {loading ? <div className="loading-overlay"><div className="spinner"></div></div>
                 : users.length === 0 ? (
                     <div className="empty-state">
-                        <div className="empty-icon">👥</div>
+                        <div className="empty-icon text-muted"><i className="bi bi-people"></i></div>
                         <h3>No users found</h3>
                     </div>
                 ) : (
@@ -54,7 +54,7 @@ function Users() {
                                         </td>
                                         <td>{fmt(u.createdAt)}</td>
                                         <td>
-                                            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(u.id)}>🗑️ Delete</button>
+                                            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(u.id)}><i className="bi bi-trash-fill"></i> Delete</button>
                                         </td>
                                     </tr>
                                 ))}

@@ -56,8 +56,8 @@ function AddMedicine() {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h1 className="page-title">💊 {isEdit ? 'Edit Medicine' : 'Add Medicine'}</h1>
-                <button className="btn btn-secondary" onClick={() => navigate('/dashboard')}>← Back</button>
+                <h1 className="page-title"><i className="bi bi-capsule text-primary"></i> {isEdit ? 'Edit Medicine' : 'Add Medicine'}</h1>
+                <button className="btn btn-secondary" onClick={() => navigate('/dashboard')}><i className="bi bi-arrow-left"></i> Back</button>
             </div>
 
             <div className="card" style={{ maxWidth: 600 }}>
@@ -105,7 +105,7 @@ function AddMedicine() {
                                     <input type="time" className="form-control" value={t}
                                         onChange={e => updateTime(i, e.target.value)} />
                                     {form.intakeTimes.length > 1 &&
-                                        <button type="button" className="btn btn-danger btn-sm btn-icon" onClick={() => removeTime(i)}>✕</button>}
+                                        <button type="button" className="btn btn-danger btn-sm btn-icon" onClick={() => removeTime(i)}><i className="bi bi-x-lg"></i></button>}
                                 </div>
                             ))}
                             <button type="button" className="btn btn-secondary btn-sm" onClick={addTime}>+ Add Time</button>
@@ -118,7 +118,7 @@ function AddMedicine() {
                     </div>
                     <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
                         <button id="med-submit" type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? 'Saving...' : isEdit ? '💾 Update Medicine' : '+ Add Medicine'}
+                            {loading ? 'Saving...' : isEdit ? <><i className="bi bi-floppy2"></i> Update Medicine</> : <><i className="bi bi-plus-lg"></i> Add Medicine</>}
                         </button>
                         <button type="button" className="btn btn-secondary" onClick={() => navigate('/dashboard')}>Cancel</button>
                     </div>

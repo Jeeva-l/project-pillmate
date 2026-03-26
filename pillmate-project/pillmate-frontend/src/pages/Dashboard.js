@@ -67,7 +67,7 @@ function Dashboard() {
             <div className="toast-container">
                 {toasts.map(t => (
                     <div key={t.id} className={`toast ${t.type}`}>
-                        <span>{t.type === 'success' ? '✅' : t.type === 'warning' ? '⚠️' : '❌'}</span>
+                        <span>{t.type === 'success' ? <i className="bi bi-check-circle-fill text-success"></i> : t.type === 'warning' ? <i className="bi bi-exclamation-triangle-fill text-warning"></i> : <i className="bi bi-x-circle-fill text-danger"></i>}</span>
                         <span>{t.msg}</span>
                     </div>
                 ))}
@@ -75,7 +75,7 @@ function Dashboard() {
 
             <div className="page-header">
                 <div>
-                    <h1 className="page-title">👋 Hello, {user?.name?.split(' ')[0]}!</h1>
+                    <h1 className="page-title"><i className="bi bi-hand-wave-fill text-warning"></i> Hello, {user?.name?.split(' ')[0]}!</h1>
                     <p className="text-muted" style={{ fontSize: '0.875rem' }}>{today}</p>
                 </div>
                 <Link to="/medicines/add" className="btn btn-primary">+ Add Medicine</Link>
@@ -84,22 +84,22 @@ function Dashboard() {
             {/* Stats */}
             <div className="stats-grid">
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: '#dbeafe' }}>💊</div>
+                    <div className="stat-icon" style={{ background: '#dbeafe', color: 'var(--primary)' }}><i className="bi bi-capsule"></i></div>
                     <div className="stat-value" style={{ color: 'var(--primary)' }}>{medicines.length}</div>
                     <div className="stat-label">Active Medicines</div>
                 </div>
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: '#d1fae5' }}>✅</div>
+                    <div className="stat-icon" style={{ background: '#d1fae5', color: 'var(--success)' }}><i className="bi bi-check-circle-fill"></i></div>
                     <div className="stat-value" style={{ color: 'var(--success)' }}>{stats.taken}</div>
                     <div className="stat-label">Taken Today</div>
                 </div>
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: '#fee2e2' }}>❌</div>
+                    <div className="stat-icon" style={{ background: '#fee2e2', color: 'var(--danger)' }}><i className="bi bi-x-circle-fill"></i></div>
                     <div className="stat-value" style={{ color: 'var(--danger)' }}>{stats.missed}</div>
                     <div className="stat-label">Missed</div>
                 </div>
                 <div className="stat-card">
-                    <div className="stat-icon" style={{ background: '#fef3c7' }}>⏭️</div>
+                    <div className="stat-icon" style={{ background: '#fef3c7', color: 'var(--warning)' }}><i className="bi bi-skip-forward-fill"></i></div>
                     <div className="stat-value" style={{ color: 'var(--warning)' }}>{stats.skipped}</div>
                     <div className="stat-label">Skipped</div>
                 </div>
@@ -112,7 +112,7 @@ function Dashboard() {
                     {loading ? <div className="loading-overlay"><div className="spinner"></div></div>
                         : medicines.length === 0 ? (
                             <div className="empty-state">
-                                <div className="empty-icon">💊</div>
+                                <div className="empty-icon text-primary"><i className="bi bi-capsule"></i></div>
                                 <h3>No medicines yet</h3>
                                 <p>Add your first medication to get started</p>
                                 <Link to="/medicines/add" className="btn btn-primary">Add Medicine</Link>
@@ -133,8 +133,8 @@ function Dashboard() {
                                             </div>
                                         </div>
                                         <div style={{ display: 'flex', gap: 6 }}>
-                                            <button className="btn btn-success btn-sm" onClick={() => handleMark(med, 'TAKEN')}>✓ Taken</button>
-                                            <button className="btn btn-secondary btn-sm" onClick={() => handleMark(med, 'SKIPPED')}>Skip</button>
+                                            <button className="btn btn-success btn-sm" onClick={() => handleMark(med, 'TAKEN')}><i className="bi bi-check2"></i> Taken</button>
+                                            <button className="btn btn-secondary btn-sm" onClick={() => handleMark(med, 'SKIPPED')}><i className="bi bi-skip-forward"></i> Skip</button>
                                         </div>
                                     </div>
                                 ))}
@@ -147,7 +147,7 @@ function Dashboard() {
                     <h3 style={{ fontWeight: 700, marginBottom: 16, fontSize: '1rem' }}>Adherence Overview</h3>
                     {chartData.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-icon">📊</div>
+                            <div className="empty-icon text-muted"><i className="bi bi-bar-chart-fill"></i></div>
                             <p>No data yet. Start logging your medicines!</p>
                         </div>
                     ) : (
@@ -178,13 +178,13 @@ function Dashboard() {
             {/* Quick Links */}
             <div className="card-grid" style={{ marginTop: 20 }}>
                 {[
-                    { icon: '📋', label: 'View History', to: '/history', color: '#dbeafe' },
-                    { icon: '📄', label: 'Prescriptions', to: '/prescriptions', color: '#d1fae5' },
-                    { icon: '🗺️', label: 'Find Pharmacy', to: '/pharmacy', color: '#fef3c7' },
+                    { icon: <i className="bi bi-clipboard2-pulse"></i>, label: 'View History', to: '/history', color: '#1e40af' },
+                    { icon: <i className="bi bi-file-earmark-text"></i>, label: 'Prescriptions', to: '/prescriptions', color: '#065f46' },
+                    { icon: <i className="bi bi-map"></i>, label: 'Find Pharmacy', to: '/pharmacy', color: '#92400e' },
                 ].map(q => (
                     <div key={q.to} className="card" onClick={() => navigate(q.to)}
                         style={{ cursor: 'pointer', textAlign: 'center' }}>
-                        <div style={{ fontSize: '2rem', marginBottom: 8 }}>{q.icon}</div>
+                        <div style={{ fontSize: '2rem', marginBottom: 8, color: q.color }}>{q.icon}</div>
                         <div style={{ fontWeight: 600 }}>{q.label}</div>
                     </div>
                 ))}

@@ -17,7 +17,7 @@ function PharmacyLocator() {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h1 className="page-title">🗺️ Pharmacy Locator</h1>
+                <h1 className="page-title"><i className="bi bi-map-fill text-primary"></i> Pharmacy Locator</h1>
             </div>
 
             {/* Google Map */}
@@ -27,7 +27,7 @@ function PharmacyLocator() {
                         height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center',
                         justifyContent: 'center', background: 'var(--bg)', color: 'var(--text-muted)'
                     }}>
-                        <div style={{ fontSize: '3rem', marginBottom: 12 }}>🗺️</div>
+                        <div style={{ fontSize: '3rem', marginBottom: 12 }}><i className="bi bi-map"></i></div>
                         <strong style={{ color: 'var(--text)' }}>Google Maps Placeholder</strong>
                         <p style={{ fontSize: '0.875rem', marginTop: 6 }}>
                             Replace <code>YOUR_GOOGLE_MAPS_API_KEY</code> in PharmacyLocator.js with your API key
@@ -54,10 +54,10 @@ function PharmacyLocator() {
                     {pharmacies.map((p, i) => (
                         <div key={i} className="pharmacy-card">
                             <div className="pharmacy-name">{p.name}</div>
-                            <div className="pharmacy-info">📍 {p.address}</div>
-                            <div className="pharmacy-info">🕐 {p.hours}</div>
-                            <div className="pharmacy-info">📞 {p.phone}</div>
-                            <div className="pharmacy-rating">⭐ {p.rating}</div>
+                            <div className="pharmacy-info"><i className="bi bi-geo-alt-fill text-danger me-1"></i> {p.address}</div>
+                            <div className="pharmacy-info"><i className="bi bi-clock-fill text-secondary me-1"></i> {p.hours}</div>
+                            <div className="pharmacy-info"><i className="bi bi-telephone-fill text-success me-1"></i> {p.phone}</div>
+                            <div className="pharmacy-rating"><i className="bi bi-star-fill text-warning me-1"></i> {p.rating}</div>
                         </div>
                     ))}
                 </div>

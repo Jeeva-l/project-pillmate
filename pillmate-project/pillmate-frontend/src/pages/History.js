@@ -31,7 +31,7 @@ function History() {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h1 className="page-title">📋 Intake History</h1>
+                <h1 className="page-title"><i className="bi bi-clipboard2-pulse text-primary"></i> Intake History</h1>
                 <select className="form-control" style={{ width: 'auto' }} value={filter}
                     onChange={e => setFilter(e.target.value)}>
                     <option value="ALL">All</option>
@@ -45,7 +45,7 @@ function History() {
                 <div className="loading-overlay"><div className="spinner"></div></div>
             ) : displayed.length === 0 ? (
                 <div className="empty-state">
-                    <div className="empty-icon">📋</div>
+                    <div className="empty-icon text-muted"><i className="bi bi-clipboard2-pulse"></i></div>
                     <h3>No records found</h3>
                     <p>Your intake history will appear here.</p>
                 </div>

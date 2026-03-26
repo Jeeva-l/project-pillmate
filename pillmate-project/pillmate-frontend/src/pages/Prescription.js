@@ -44,14 +44,14 @@ function Prescription() {
     return (
         <div className="page-container">
             <div className="page-header">
-                <h1 className="page-title">📄 Prescriptions</h1>
-                <button className="btn btn-primary" onClick={openAdd}>+ Add Prescription</button>
+                <h1 className="page-title"><i className="bi bi-file-earmark-text-fill text-primary"></i> Prescriptions</h1>
+                <button className="btn btn-primary" onClick={openAdd}><i className="bi bi-plus-lg"></i> Add Prescription</button>
             </div>
 
             {loading ? <div className="loading-overlay"><div className="spinner"></div></div>
                 : prescriptions.length === 0 ? (
                     <div className="empty-state">
-                        <div className="empty-icon">📄</div>
+                        <div className="empty-icon text-muted"><i className="bi bi-file-earmark-text"></i></div>
                         <h3>No prescriptions yet</h3>
                         <p>Add your doctor's prescription to keep track.</p>
                         <button className="btn btn-primary" onClick={openAdd}>Add Prescription</button>
@@ -62,15 +62,15 @@ function Prescription() {
                             <div key={p.id} className="card" style={{ position: 'relative' }}>
                                 <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 6 }}>{p.medicineName || 'Prescription'}</div>
                                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 10 }}>
-                                    <div>👨‍⚕️ Dr. {p.doctorName || '—'}</div>
-                                    <div>💊 {p.dosage || '—'}</div>
-                                    {p.issuedDate && <div>📅 Issued: {p.issuedDate}</div>}
-                                    {p.expiryDate && <div>⏰ Expires: {p.expiryDate}</div>}
+                                    <div><i className="bi bi-person-badge-fill"></i> Dr. {p.doctorName || '—'}</div>
+                                    <div><i className="bi bi-capsule"></i> {p.dosage || '—'}</div>
+                                    {p.issuedDate && <div><i className="bi bi-calendar-check text-success"></i> Issued: {p.issuedDate}</div>}
+                                    {p.expiryDate && <div><i className="bi bi-clock-history text-danger"></i> Expires: {p.expiryDate}</div>}
                                     {p.instructions && <div style={{ marginTop: 6, color: 'var(--text)' }}>{p.instructions}</div>}
                                 </div>
                                 <div style={{ display: 'flex', gap: 8 }}>
-                                    <button className="btn btn-secondary btn-sm" onClick={() => openEdit(p)}>✏️ Edit</button>
-                                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(p.id)}>🗑️</button>
+                                    <button className="btn btn-secondary btn-sm" onClick={() => openEdit(p)}><i className="bi bi-pencil-square"></i> Edit</button>
+                                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(p.id)}><i className="bi bi-trash-fill"></i></button>
                                 </div>
                             </div>
                         ))}

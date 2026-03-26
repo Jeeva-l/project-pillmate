@@ -27,7 +27,7 @@ function Login() {
         <div className="auth-wrapper">
             <div className="auth-card">
                 <div className="auth-logo">
-                    <span className="logo-icon">💊</span>
+                    <span className="logo-icon text-primary"><i className="bi bi-capsule"></i></span>
                     <h1>PillMate</h1>
                     <p>Smart Medication Reminder</p>
                 </div>

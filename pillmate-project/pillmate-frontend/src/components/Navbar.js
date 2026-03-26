@@ -3,11 +3,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
-    { to: '/dashboard', icon: '🏠', label: 'Dashboard' },
-    { to: '/medicines/add', icon: '💊', label: 'Add Medicine' },
-    { to: '/history', icon: '📋', label: 'History' },
-    { to: '/prescriptions', icon: '📄', label: 'Prescriptions' },
-    { to: '/pharmacy', icon: '🗺️', label: 'Pharmacy' },
+    { to: '/dashboard', icon: <i className="bi bi-house-door"></i>, label: 'Dashboard' },
+    { to: '/medicines/add', icon: <i className="bi bi-capsule"></i>, label: 'Add Medicine' },
+    { to: '/history', icon: <i className="bi bi-clipboard2-pulse"></i>, label: 'History' },
+    { to: '/prescriptions', icon: <i className="bi bi-file-earmark-text"></i>, label: 'Prescriptions' },
+    { to: '/pharmacy', icon: <i className="bi bi-map"></i>, label: 'Pharmacy' },
 ];
 
 function Navbar() {
@@ -18,7 +18,7 @@ function Navbar() {
     const handleLogout = () => { logout(); navigate('/login'); };
 
     const allItems = isAdmin
-        ? [...navItems, { to: '/users', icon: '👥', label: 'Users' }]
+        ? [...navItems, { to: '/users', icon: <i className="bi bi-people"></i>, label: 'Users' }]
         : navItems;
 
     return (
@@ -35,8 +35,8 @@ function Navbar() {
                 {/* Logo */}
                 <div style={{ padding: '20px 16px', borderBottom: '1px solid var(--border)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: '1.8rem' }}>💊</span>
-                        <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--primary)' }}>PillMate</span>
+                        <span style={{ fontSize: '1.8rem', color: 'var(--primary)' }}><i className="bi bi-capsule"></i></span>
+                        <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--text)' }}>PillMate</span>
                     </div>
                 </div>
                 {/* Nav */}
@@ -65,7 +65,7 @@ function Navbar() {
                     </div>
                     <button className="btn btn-secondary btn-sm" style={{ width: '100%', justifyContent: 'center' }}
                         onClick={handleLogout}>
-                        🚪 Sign Out
+                        <i className="bi bi-box-arrow-right"></i> Sign Out
                     </button>
                 </div>
             </aside>
@@ -80,13 +80,15 @@ function Navbar() {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <button id="mobile-menu-btn"
-                        style={{ background: 'none', border: 'none', fontSize: '1.3rem', cursor: 'pointer', padding: 4 }}
+                        style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center', color: 'var(--text)' }}
                         onClick={() => setMobileOpen(o => !o)} aria-label="Menu">
-                        {mobileOpen ? '✕' : '☰'}
+                        {mobileOpen ? <i className="bi bi-x-lg"></i> : <i className="bi bi-list"></i>}
                     </button>
-                    <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--primary)' }}>💊 PillMate</span>
+                    <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--text)' }}>
+                        <i className="bi bi-capsule" style={{ color: 'var(--primary)' }}></i> PillMate
+                    </span>
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>👤 {user?.name}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}><i className="bi bi-person-circle"></i> {user?.name}</div>
             </header>
 
             {/* ---- Mobile Drawer ---- */}
@@ -122,7 +124,7 @@ function Navbar() {
                         </nav>
                         <div style={{ padding: '16px', borderTop: '1px solid var(--border)' }}>
                             <button className="btn btn-secondary btn-sm" style={{ width: '100%', justifyContent: 'center' }}
-                                onClick={handleLogout}>🚪 Sign Out</button>
+                                onClick={handleLogout}><i className="bi bi-box-arrow-right"></i> Sign Out</button>
                         </div>
                     </div>
                 </div>
