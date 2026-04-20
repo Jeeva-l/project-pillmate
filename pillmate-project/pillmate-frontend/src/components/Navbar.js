@@ -130,11 +130,14 @@ function Navbar() {
                 </div>
             )}
 
-            {/* Sidebar CSS for desktop */}
+            {/* Sidebar & Mobile CSS overrides */}
             <style>{`
         @media (min-width: 768px) {
           #sidebar { transform: translateX(0) !important; }
           header { display: none !important; }
+        }
+        @media (max-width: 768px) {
+          header > div:last-child { display: none !important; }
         }
       `}</style>
         </>

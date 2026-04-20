@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
     phone VARCHAR(20),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reset_otp VARCHAR(6),
+    reset_otp_expiry DATETIME
 );
 
 -- ---- Medicines ----

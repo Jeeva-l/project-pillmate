@@ -46,22 +46,7 @@ function PharmacyLocator() {
             </div>
 
             {/* Pharmacy List */}
-            <h2 style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 16 }}>Nearby Pharmacies</h2>
-            {loading ? (
-                <div className="loading-overlay"><div className="spinner"></div></div>
-            ) : (
-                <div className="card-grid">
-                    {pharmacies.map((p, i) => (
-                        <div key={i} className="pharmacy-card">
-                            <div className="pharmacy-name">{p.name}</div>
-                            <div className="pharmacy-info"><i className="bi bi-geo-alt-fill text-danger me-1"></i> {p.address}</div>
-                            <div className="pharmacy-info"><i className="bi bi-clock-fill text-secondary me-1"></i> {p.hours}</div>
-                            <div className="pharmacy-info"><i className="bi bi-telephone-fill text-success me-1"></i> {p.phone}</div>
-                            <div className="pharmacy-rating"><i className="bi bi-star-fill text-warning me-1"></i> {p.rating}</div>
-                        </div>
-                    ))}
-                </div>
-            )}
+            
         </div>
     );
 }

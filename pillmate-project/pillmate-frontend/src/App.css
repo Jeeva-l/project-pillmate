@@ -125,6 +125,37 @@ h1, h2, h3, h4, h5, h6, .page-title, .auth-logo h1, .stat-value, .medicine-card-
   gap: 12px;
 }
 
+.notification-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 100%);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius);
+}
+
+.notification-banner-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.notification-banner-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 767px) {
+  .notification-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 /* ---- Buttons ---- */
 .btn {
   display: inline-flex;

@@ -6,6 +6,7 @@ import com.pillmate.dto.LoginRequest;
 import com.pillmate.dto.RegisterRequest;
 import com.pillmate.model.User;
 import com.pillmate.repository.UserRepository;
+import com.pillmate.service.EmailNotificationService;
 import com.pillmate.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -31,6 +36,8 @@ public class AuthController {
     PasswordEncoder passwordEncoder;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    EmailNotificationService emailService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -64,6 +71,50 @@ public class AuthController {
         user.setPhone(request.getPhone());
         userRepository.save(user);
 
+        // 🔥 Natively trigger the Welcome Email in the background!
+        try {
+            emailService.sendWelcomeEmail(user.getEmail(), user.getName());
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
+
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully!"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody com.pillmate.dto.ForgotPasswordRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            String otp = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1_000_000));
+            user.setResetOtp(otp);
+            user.setResetOtpExpiry(LocalDateTime.now().plusMinutes(10));
+            userRepository.save(user);
+
+            emailService.sendPasswordResetOtpEmail(user.getEmail(), otp);
+            return ResponseEntity.ok(new ApiResponse(true, "A 6-digit OTP has been sent to your email."));
+        } else {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "This email is not registered."));
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody com.pillmate.dto.ResetPasswordRequest request) {
+        Optional<User> userOptional = userRepository.findByEmailAndResetOtp(request.getEmail(), request.getOtp());
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Invalid email or OTP."));
+        }
+
+        User user = userOptional.get();
+        if (user.getResetOtpExpiry() != null && user.getResetOtpExpiry().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "OTP has expired. Please request a new one."));
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setResetOtp(null);
+        user.setResetOtpExpiry(null);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new ApiResponse(true, "Password has been successfully reset."));
     }
 }

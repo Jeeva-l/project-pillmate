@@ -23,7 +23,13 @@ spring.datasource.password=YOUR_MYSQL_PASSWORD
 # For email notifications (optional):
 spring.mail.username=your-email@gmail.com
 spring.mail.password=your-gmail-app-password
+
+# For Firebase push notifications:
+firebase.project-id=pillmate-b20b8
+firebase.service-account-path=file:/absolute/path/to/pillmate-b20b8-service-account.json
 ```
+
+Important: the Firebase Admin service account must come from the same Firebase project as the frontend app. If the frontend uses `pillmate-b20b8`, the backend must also use a `pillmate-b20b8` service account JSON.
 
 ### 3. Run
 ```bash

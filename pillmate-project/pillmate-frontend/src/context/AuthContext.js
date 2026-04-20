@@ -1,5 +1,10 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { login as loginApi, register as registerApi } from '../services/api';
+import {
+    getBrowserNotificationPermission,
+    listenForForegroundNotifications,
+    registerBrowserPushNotificationsWithOptions,
+} from '../services/pushNotifications';
 
 const AuthContext = createContext(null);
 
@@ -14,6 +19,30 @@ export const AuthProvider = ({ children }) => {
         }
         setLoading(false);
     }, []);
+
+    useEffect(() => {
+        if (!user?.id) {
+            return undefined;
+        }
+
+        let unsubscribe = () => {};
+
+        if (getBrowserNotificationPermission() === 'granted') {
+            registerBrowserPushNotificationsWithOptions(user.id, { requestPermission: false }).catch((error) => {
+                console.warn('Push notification registration failed:', error);
+            });
+        }
+
+        listenForForegroundNotifications()
+            .then((cleanup) => {
+                unsubscribe = cleanup;
+            })
+            .catch((error) => {
+                console.warn('Push notification listener failed:', error);
+            });
+
+        return () => unsubscribe();
+    }, [user?.id]);
 
     const login = async (email, password) => {
         const res = await loginApi({ email, password });

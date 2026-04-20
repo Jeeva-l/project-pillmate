@@ -30,6 +30,9 @@ public class MedicineController {
 
     @PostMapping
     public Medicine createMedicine(@RequestBody Medicine medicine) {
+        if (medicine.getActive() == null) {
+            medicine.setActive(true);
+        }
         return medicineRepository.save(medicine);
     }
 

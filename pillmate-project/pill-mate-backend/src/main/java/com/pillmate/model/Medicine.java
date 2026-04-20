@@ -2,6 +2,7 @@ package com.pillmate.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class Medicine {
 
     @Column
     private String category;
+
+    @Column(name = "last_notified_time")
+    private LocalDateTime lastNotifiedTime;
 
     // Constructors
     public Medicine() {
@@ -136,5 +140,13 @@ public class Medicine {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public LocalDateTime getLastNotifiedTime() {
+        return lastNotifiedTime;
+    }
+
+    public void setLastNotifiedTime(LocalDateTime lastNotifiedTime) {
+        this.lastNotifiedTime = lastNotifiedTime;
     }
 }
